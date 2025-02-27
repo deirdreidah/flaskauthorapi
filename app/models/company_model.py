@@ -2,10 +2,12 @@ from app.extensions import db
 from datetime import datetime
 
 class Company(db.Model):
+       # __bind_key__ = "companies_db" tells SQLAlchemy that this is a diff database from the authors db my default db literally.
+        __tablename__ = "companies"
         company_id = db.Column(db.Integer, primary_key=True)
-        name = db.Column(db.String(20), nullable = False)
-        origin = db.Column(db.String(), nullable = False)
-        description = db.Column(db.String(20), nullable = False)
+        name = db.Column(db.String(100), nullable = False)
+        origin = db.Column(db.String(100), nullable = False)
+        description = db.Column(db.String(100), nullable = False)
         email =  db.Column(db.String(30), nullable = False, unique = True)
         contact = db.Column(db.String(10), nullable = False, unique = True)
         created_at = db.Column(db.DateTime, default = datetime.now())

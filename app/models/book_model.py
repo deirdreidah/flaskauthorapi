@@ -2,12 +2,18 @@ from app.extensions import db
 from datetime import datetime
 
 class Book(db.Model):
+    # you can also use  __bind_key__ = "books_db" 
+     # the bind_ key tells SQLAlchemy which database a model should be associated with. 
+     # Without it, all models would default to the primary database, making multiple database usage impossible.
+     #while migrating my data after using SQLAlchemy_bind i will use the command flask db upgrade --bind books_db
+     #it will apply migrations for my  specific database (books_db)
+     __tablename__ = "books"
      book_id = db.Column(db.Integer, primary_key=True, nullable = False)
      title = db.Column(db.String(30), nullable = False)
      price = db.Column(db.String(20), nullable = False)
      description= db.Column(db.String(250), nullable = False)
-     isbn = db.Column(db.String(200), nullable = False)
-     image = db.Column(db.String(255), nullable = False, unique = True)
+     isbn = db.Column(db.Integer, nullable = False, unique = True)
+     image = db.Column(db.String(255), nullable = True)
      no_of_pages = db.Column(db.String(5), nullable = False)
      price_unit= db.Column(db.String(20), nullable = False)
      publication_date = db.Column(db.String(35), nullable = False)
@@ -28,3 +34,6 @@ class Book(db.Model):
        self.format= format
        self.genre= genre
        self.language= language
+
+
+       #ISBN = INTERNATIONAL STANDARD BOOK NUMBER
